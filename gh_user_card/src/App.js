@@ -27,15 +27,17 @@ class App extends React.Component {
           this.setState({
             followers: res.data
           })
-          followers.forEach(follower => {
-            axios.get(`https://api.github.com/users/${follower}`)
-                  .then(res => {
-                    this.setState({
-                      users: res.data
-                    })
-                  })
-          })
+          console.log(this.state.followers)
+          // this.state.followers.map(follower => {
+          //   axios.get(`https://api.github.com/users/${follower}`)
+          //         .then(res => {
+          //           this.setState({
+          //             users: res.data
+          //           })
+          //         })
+          // })
         })
+        
   }
   
   render() {
@@ -50,11 +52,11 @@ class App extends React.Component {
         ))}</p>
         <p>Following: {this.state.user.following}</p>
         <p>Repos: {this.state.public_repos}</p>
-        <div className="followers">
+        {/* <div className="followers">
           {this.state.users.map(user => (
             <h3>{this.state.user.login}</h3>
           ))}
-        </div>
+        </div> */}
       </div>
     );
   }

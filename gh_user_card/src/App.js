@@ -5,7 +5,8 @@ import './App.css';
 class App extends React.Component {
   state = {
     user: {},
-    followers: []
+    followers: [],
+    users: [{}]
   }
   
   componentDidMount() {
@@ -22,9 +23,17 @@ class App extends React.Component {
       axios
         .get('https://api.github.com/users/wildcard329/followers')
         .then(res => {
-          console.log(res)
+          console.log(res.data)
           this.setState({
-            followers: res.data.login
+            followers: res.data
+          })
+          followers.forEach(follower => {
+            axios.get(`https://api.github.com/users/${follower}`)
+                  .then(res => {
+                    this.setState({
+                      users: res.data
+                    })
+                  })
           })
         })
   }
@@ -35,8 +44,17 @@ class App extends React.Component {
         <h1>Github Users</h1>
         <h3>{this.state.user.login}</h3>
         <img src={this.state.user.avatar_url} />
-        <p>Followers: {this.state.user.followers}</p>
+        <p>Followers: {this.state.user.followers}</p> 
+          <p>{this.state.followers.map(follower => (
+          <span>{follower.login} </span>
+        ))}</p>
         <p>Following: {this.state.user.following}</p>
+        <p>Repos: {this.state.public_repos}</p>
+        <div className="followers">
+          {this.state.users.map(user => (
+            <h3>{this.state.user.login}</h3>
+          ))}
+        </div>
       </div>
     );
   }
@@ -54,3 +72,4 @@ export default App;
 // Step six: set up state and return based on console results
 // note for step six: instead of directly using users.var, 
 // the variable needs to follow this.state
+// Step seven: make axios to followers and return data

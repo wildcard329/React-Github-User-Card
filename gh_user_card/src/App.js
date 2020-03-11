@@ -5,9 +5,8 @@ import './App.css';
 class App extends React.Component {
   state = {
     user: {},
-    followers: [],
-    users: [{}]
-  }
+    followers: []
+    }
   
   componentDidMount() {
     axios
@@ -28,14 +27,6 @@ class App extends React.Component {
             followers: res.data
           })
           console.log(this.state.followers)
-          // this.state.followers.map(follower => {
-          //   axios.get(`https://api.github.com/users/${follower}`)
-          //         .then(res => {
-          //           this.setState({
-          //             users: res.data
-          //           })
-          //         })
-          // })
         })
         
   }
@@ -52,6 +43,15 @@ class App extends React.Component {
         ))}</p>
         <p>Following: {this.state.user.following}</p>
         <p>Repos: {this.state.public_repos}</p>
+        {this.state.followers.map(follower => {
+          return (
+            <div key={follower.id}>
+              <h3>{follower.login}</h3>
+              <img src={follower.avatar_url} />
+              <p></p>
+            </div>
+          )
+        })}
         {/* <div className="followers">
           {this.state.users.map(user => (
             <h3>{this.state.user.login}</h3>

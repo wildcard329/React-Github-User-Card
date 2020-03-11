@@ -52,11 +52,6 @@ class App extends React.Component {
             </div>
           )
         })}
-        {/* <div className="followers">
-          {this.state.users.map(user => (
-            <h3>{this.state.user.login}</h3>
-          ))}
-        </div> */}
       </div>
     );
   }
